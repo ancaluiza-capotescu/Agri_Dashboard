@@ -172,10 +172,11 @@
 }
 .grid-child-element_myads { 
   text-align: left;
+  margin-bottom: 1vh;;
 }
 .grid-container-element_myads { 
   display: grid; 
-  grid-template-columns: 1fr 5fr 1fr; 
+  grid-template-columns: 1fr 1fr 4fr 1fr; 
   grid-gap:1vw; 
   margin-left: 5vw; 
   margin-top: 1vh;
@@ -355,6 +356,13 @@
 	padding: 15px;
 	border-radius: 10px;
 	background-color: #edf5f3;
+	font-size: 14px;
+}
+.image_formad{
+	outline: none;
+	border: none;
+	width: max(10vw,250px);
+	padding: 15px;
 	font-size: 14px;
 }
 .input_formad_name{
@@ -713,4 +721,9 @@ label {
   grid-gap:3vw; 
   margin-left: 5vw; 
   margin-right:1vw;
+}
+
+.img_ads{
+  height: 20vh;
+  width: 100vw;
 }

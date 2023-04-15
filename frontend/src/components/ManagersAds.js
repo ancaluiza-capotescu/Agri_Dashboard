@@ -63,7 +63,10 @@ const ManagersAds = () => {
               <div className='br_color'>....</div>
               <div className="h2_myads"> {myads.title}</div>
               <div className="grid-container-element_myads">
-                            <div className="grid-child-element_myads">
+              <div className="grid-child-element_myads">
+                <img src={`uploads/${myads.picture}`} alt="..." className="img_ads"/>
+              </div>
+              <div className="grid-child-element_myads">
               <div><h3 >Descriere:</h3> </div>
               <div><h3 >Proprietar:</h3></div>
               <div><h3 >Contact:</h3> </div>
