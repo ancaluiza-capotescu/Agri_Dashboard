@@ -5,7 +5,6 @@ const routes = require('./routes/users');
 const routes_location = require('./routes/location');
 const routes_dailyStatus = require('./routes/dailyStatus');
 const routes_ad = require('./routes/ad');
-const routes_request = require('./routes/requests');
 const errorHandler = require("./middleware/error");
 require('dotenv').config();
 var cors = require('cors');
@@ -30,7 +29,6 @@ app.use('/auth',require('./routes/auth'));
 app.use('/locations',routes_location);
 app.use('/dailyStatuses',routes_dailyStatus);
 app.use('/ad',routes_ad);
-app.use('/requests',routes_request);
 app.use(errorHandler);
 process.on("unhandledRejection",(err,promise)=>{
   console.log(`Logged Error: ${err}`);

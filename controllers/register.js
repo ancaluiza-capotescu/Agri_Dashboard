@@ -23,7 +23,7 @@ function checkOwnerName(str){
     return ((str.includes(" ")) && /^[A-Za-z ]+$/.test(str));
 }
 function checkCUI(str){
-    return /^(RO)?[0-9]+$/.test(str);
+    return str.includes("error");
 }
 
 exports.register=async(req,res,next) => {
@@ -65,7 +65,7 @@ exports.register=async(req,res,next) => {
             if(owner.length < 3 || !checkOwnerName(owner)){
                 return next(new ErrorResponse("Introduceți numele complet al directorului (nume și prenume)!"));
             }
-            if(CUI.length<2 || CUI.length>12 || !checkCUI(CUI)){
+            if(checkCUI(CUI)){
                 return next(new ErrorResponse("Introduceți un CUI valid!"));
             }
             if(address.length < 3){

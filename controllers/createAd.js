@@ -1,6 +1,18 @@
 const Ad = require("../models/adModel.js");
 const ErrorResponse = require("../utils/errorResponse");
 
+const multer = require('multer')
+
+const storage = multer.diskStorage({
+  destination: (req, file, callback) => {
+    callback(null, "./frontend/public/uploads/");
+  },
+  filename: (req, file, callback) => {
+    callback(null, file.originalname);
+  }
+})
+
+const upload = multer({storage: storage});
 
 exports.createAd=async(req,res,next) => {
     const {username, description, title, owner, price, address, contact,  picture} = req.body;

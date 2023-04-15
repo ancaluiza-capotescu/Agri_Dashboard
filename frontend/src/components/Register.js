@@ -14,48 +14,48 @@ const Register = () => {
 		  setData({ ...data, [input.name]: input.value });
 	  };
 
+      const postRequest = (cui) => {
+        const url = "http://localhost:5000/users/register";
+        axios.post(url, {
+            username: data.username,
+            password: data.password,
+            email: data.email,
+            name: data.name,
+            owner: data.owner,
+            CUI: cui,
+            address: data.address,
+            phone: data.phone,
+            role: data.role,
+            confirm_password: data.confirm_password,
+            approved: false
+        }).then(response => { 
+            setSuccess("Cont creat cu succes!");
+            console.log(data.cui);
+            setTimeout(() => {
+                setSuccess("");
+                window.location = "/login";
+            }, 5000);
+        }).catch(error => {
+            setError(error.response.data.error);
+            setTimeout(() => {
+                setError("");
+            }, 5000);
+        });
+      }
+
 	  const handleSubmit = async (e) => {
 		  e.preventDefault();
             data.role = "manager";
-			const url = "http://localhost:5000/requests/Requests";
 			const urlCUI = "https://api.openapi.ro/api/companies/"+data.cui;
+
             axios.get(urlCUI,{ headers: { 'x-api-key': '8K5dfthvMSZ4LXEX56ZeHNL6A8ZUgsYf-CWHGZZot7KHr4egkg' } 
-            }).then(result => {
-                // If request is good...
-                console.log('succes');
-                console.log(result.data);
-                axios.post(url, {
-                    username: data.username,
-                    password: data.password,
-                    email: data.email,
-                    name: data.name,
-                    owner: data.owner,
-                    CUI: data.cui,
-                    address: data.address,
-                    phone: data.phone,
-                    role: data.role,
-                    confirm_password: data.confirm_password,
-                    approved: false
-                }).then(response => { 
-                    setSuccess("Cont creat cu succes! Veți primi o confirmare pe e-mail imediat ce contul este verificat si disponibil pentru utlizare.");
-                    setTimeout(() => {
-                        setSuccess("");
-                        window.location = "/login";
-                    }, 5000);
-                }).catch(error => {
-                    setError(error.response.data.error);
-                    setTimeout(() => {
-                        setError("");
-                    }, 5000);
-                }); 
+            }).then(result => { 
+                postRequest(result.data.cif);
              })
-            .catch((error2) => {
-                console.log('error ' + error2);
-                setError("CUI-ul este invalid!");
-                setTimeout(() => {
-                    setError("");
-                }, 5000);
+            .catch(() => {
+                postRequest("error");
              });
+             
             
 	  };	  
   return (
@@ -113,7 +113,7 @@ const Register = () => {
                                 />
                                 <input
                                     formNoValidate
-                                    placeholder="CUI"
+                                    placeholder="CUI (fara RO)"
                                     name="cui"
                                     onChange={handleChange}
                                     value={data.cui}

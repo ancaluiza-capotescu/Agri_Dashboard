@@ -6,43 +6,61 @@ const FormAd = () => {
     const handleGoBacktoAds = () => {
         window.location = "/managersads";
       }
-	  const [data, setData] = useState({ username: "", description: "", title: "", owner: "",price: "",  address: "", contact: "", picture: "" });
+      const [description, setDescription] = useState("");
+      const [title, setTitle] = useState("");
+      const [price, setPrice] = useState("");
+      const [address, setAddress] = useState("");
+      const [contact, setContact] = useState("");
+      const [fileName, setFilename] = useState("");
 	  const [error, setError] = useState("");
       const [success, setSuccess] = useState("");
       const username1 = localStorage.getItem("currentLoggedAdmin");
       const admin_name = localStorage.getItem("admin_name");
-  
-	  const handleChange = ({ currentTarget: input }) => {
-		  setData({ ...data, [input.name]: input.value });
-	  };
+      
+      const onChangeFile = (e) => {
+        setFilename(e.target.files[0]);
+      }
 
-	  const handleSubmit = async (e) => {
+	  const handleSubmit = (e) => {
 		  e.preventDefault();
-            data.username = username1;
-            data.owner = admin_name;
-			const url = "http://localhost:5000/ad/Ads";
-            axios.post(url, {
-                username: data.username,
-                description: data.description,
-                title: data.title,
-                owner: data.owner,
-                price: data.price,
-                address: data.address,
-                contact: data.contact,
-                picture: "",
-            }).then(response => { 
-                setSuccess("Anunț creat cu succes!");
-                setTimeout(() => {
-                    setSuccess("");
-                    window.location = "/managersads"
-                }, 5000);
-            }).catch(error => {
-                setError(error.response.data.error);
+          if(description && title && price && address && contact && fileName){
+            if(contact.length === 10 && ((contact.includes("07", 0)) && /^\d+$/.test(contact))){
+                const formData = new FormData();
+                    formData.append("username", username1);
+                    formData.append("description", description);
+                    formData.append("title", title);
+                    formData.append("owner", admin_name);
+                    formData.append("price", price);
+                    formData.append("address", address);
+                    formData.append("contact", contact);
+                    formData.append("picture", fileName);
+                    const url = "http://localhost:5000/ad/Ads";
+                    axios.post(url, formData)
+                    .then(response => { 
+                        setSuccess("Anunț creat cu succes!");
+                        setTimeout(() => {
+                            setSuccess("");
+                            window.location = "/managersads"
+                        }, 5000);
+                    }).catch(error => {
+                        setError("Încărcare nereușită, mai încercați!");
+                        setTimeout(() => {
+                            setError("");
+                        }, 5000);
+                    }); 
+            }else{
+                setError("Număr de telefon invalid!");
                 setTimeout(() => {
                     setError("");
                 }, 5000);
-            }); 
-	  };	  
+            }
+          }else{
+            setError("Completați toate câmpurile!");
+            setTimeout(() => {
+                setError("");
+            }, 5000);
+          }
+	};	  
   return (
       <div>
                <div>
@@ -55,24 +73,24 @@ const FormAd = () => {
      <div className="formad_form_container">
 			<div className="login_form_container">
 			<div className="left">
-      <form noValidate className="form_container" onSubmit={handleSubmit}>
+      <form noValidate className="form_container" onSubmit={handleSubmit} encType='multipart/form-data'>
                        <br></br>
                                 <input
                                     formNoValidate
                                     placeholder="Titlul anunțului"
                                     name="title"
-                                    onChange={handleChange}
-                                    value={data.title}
+                                    onChange={(e) =>setTitle(e.target.value)}
+                                    value={title}
                                     required
                                     className="input_formad"
                                 />
                                 <input
                                     formNoValidate
                                     type="text"
-                                    placeholder="Contact"
+                                    placeholder="Telefon"
                                     name="contact"
-                                    onChange={handleChange}
-                                    value={data.contact}
+                                    onChange={(e) =>setContact(e.target.value)}
+                                    value={contact}
                                     required
                                     className="input_formad"
                                 />
@@ -80,8 +98,8 @@ const FormAd = () => {
                                     formNoValidate
                                     placeholder="Adresă"
                                     name="address"
-                                    onChange={handleChange}
-                                    value={data.address}
+                                    onChange={(e) =>setAddress(e.target.value)}
+                                    value={address}
                                     required
                                     className="input_formad"
                                 />
@@ -90,8 +108,8 @@ const FormAd = () => {
                                     formNoValidate
                                     placeholder="Preț"
                                     name="price"
-                                    onChange={handleChange}
-                                    value={data.price}
+                                    onChange={(e) =>setPrice(e.target.value)}
+                                    value={price}
                                     required
                                     className="input_formad"
                                 />
@@ -102,13 +120,23 @@ const FormAd = () => {
 							type="text"
 							placeholder="Descriere"
 							name="description"
-							onChange={handleChange}
-							value={data.description}
+							onChange={(e) =>setDescription(e.target.value)}
+							value={description}
 							required
                             rows="4"
                             cols="30"
                             className='textarea_employee'
 						/>
+
+                        <div>
+                            <input 
+                                id="files"
+                                type="file" 
+                                name="picture"
+                                onChange = {onChangeFile}
+                                className="image_formad"
+                            />
+                        </div>
    
                                
 						{error && <div className="error_message">{error}</div>}
