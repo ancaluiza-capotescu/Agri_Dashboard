@@ -28,13 +28,8 @@ function checkCUI(str){
 
 exports.register=async(req,res,next) => {
     const {username, password, email, name, owner, CUI, address, phone, role, confirm_password} = req.body;
-    if(!username || !password || !role || !name || !email || !confirm_password){
+    if(!username || !password || !role || !name || !email || !confirm_password || !owner || !phone || !CUI || !address){
         return next(new ErrorResponse("Completați toate câmpurile!", 400));
-    }
-    if(role != "administrator"){
-        if(!owner || !phone || !CUI || !address){
-            return next(new ErrorResponse("Completați toate câmpurile!", 400));
-        }
     }
     try{
         const userSameUsername = await User.findOne({username});
@@ -58,18 +53,25 @@ exports.register=async(req,res,next) => {
         if(!validateEmail(email)){
             return next(new ErrorResponse("Adresa de e-mail trebuie să fie validă!"));
         }
-        if(role != "administrator"){
-            if(phone.length != 10 || !checkPhoneNo(phone)){
-                return next(new ErrorResponse("Numărul de telefon trebuie să conțină exact 10 cifre și să fie valid!"));
+        if(phone.length != 10 || !checkPhoneNo(phone)){
+           return next(new ErrorResponse("Numărul de telefon trebuie să conțină exact 10 cifre și să fie valid!"));
+        }
+        if(owner.length < 3){
+            return next(new ErrorResponse("Introduceți numele complet al directorului (nume și prenume)!"));
+        }
+        if(checkCUI(CUI)){
+            return next(new ErrorResponse("Introduceți un CUI valid!"));
+        }
+        if(address.length < 3){
+            return next(new ErrorResponse("Introduceți o adresă validă!"));
+        }
+        if( role == "manager"){
+            const userSameCUI = await User.findOne({CUI});
+            if(userSameCUI){
+                return next(new ErrorResponse("CUI-ul introdus există deja în cadrul altui cont!", 401));
             }
-            if(owner.length < 3 || !checkOwnerName(owner)){
+            if(!checkOwnerName(owner)){
                 return next(new ErrorResponse("Introduceți numele complet al directorului (nume și prenume)!"));
-            }
-            if(checkCUI(CUI)){
-                return next(new ErrorResponse("Introduceți un CUI valid!"));
-            }
-            if(address.length < 3){
-                return next(new ErrorResponse("Introduceți o adresă validă!"));
             }
         }
 

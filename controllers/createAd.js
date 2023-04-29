@@ -1,5 +1,6 @@
 const Ad = require("../models/adModel.js");
 const ErrorResponse = require("../utils/errorResponse");
+const {v4: uuid } = require( 'uuid');
 
 const multer = require('multer')
 
@@ -8,7 +9,7 @@ const storage = multer.diskStorage({
     callback(null, "./frontend/public/uploads/");
   },
   filename: (req, file, callback) => {
-    callback(null, file.originalname);
+    callback(null,file.originalname);
   }
 })
 
