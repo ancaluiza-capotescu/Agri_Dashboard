@@ -19,6 +19,7 @@ const FormAd = () => {
       
       const onChangeFile = (e) => {
         setFilename(e.target.files[0]);
+        console.log(e.target.files[0]);
       }
 
 	  const handleSubmit = (e) => {

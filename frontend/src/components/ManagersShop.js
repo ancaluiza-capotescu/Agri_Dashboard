@@ -55,12 +55,14 @@ const ManagersShop = () => {
               <div className='br_color'>....</div>
               <div className="h2_myads"> {ads.title}</div>
               <div className="grid-container-element_myads">
-                            <div className="grid-child-element_myads">
-              <h3 >Descriere:</h3> 
-              <h3 >Proprietar:</h3>
-              <h3 >Contact:</h3> 
-              <h3 >Adresă:</h3>
-              <h3 >Preț:</h3>
+              <div className="grid-child-element_myads"><img src={`uploads/${ads.picture}`} alt="..." className="img_ads"/>
+              </div>
+              <div className="grid-child-element_myads">
+              <div><h3 >Descriere:</h3> </div>
+              <div><h3 >Proprietar:</h3></div>
+              <div><h3 >Contact:</h3> </div>
+              <div><h3 >Adresă:</h3></div>
+              <div><h3 >Preț:</h3></div>
               </div>
               <div className="grid-child-element_myads">
               <h3 >{ads.description} </h3>
