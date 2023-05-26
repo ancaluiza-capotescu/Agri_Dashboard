@@ -23,6 +23,6 @@ router.get('/:id', (req, res) => {
       .then((data) => res.json(data))
       .catch(err => res.status(404).json({ nouserfound: 'No Users found' }));
   });
-  router.route("/:id").put(edit);
+router.route("/:id").put(edit);
 
 module.exports = router;

@@ -27,7 +27,7 @@ export default function EmployeeHome() {
                 username: username,
                 status: data.status
             }).then(response => { 
-                setSuccess("Status introdus cu succes!");
+                setSuccess("Raport introdus cu succes!");
                 setTimeout(() => {
                     setSuccess("");
                 }, 5000);
@@ -88,7 +88,8 @@ export default function EmployeeHome() {
           {pushed && <Marker position = {center}/>}
         </GoogleMap>
         </LoadScript>
-      <div className='employee_page_element'><button  onClick={handleLocation} className="green_btn_employeepage">Distribuie locația</button></div>
+      <div className='employee_page_element'>
+        <button  onClick={handleLocation} className="green_btn_employeepage">Distribuie locația</button></div>
       <div className="employee_form_container">
 			<div className="login_form_container">
 			<div className="left">

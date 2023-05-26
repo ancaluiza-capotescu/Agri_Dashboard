@@ -3,7 +3,7 @@ import axios from 'axios';
 
 const EditProfileManager  = () =>{
    
-  const [data, setData] = useState({ username: "", password: "", role: "",name: "", owner: "", CUI: "", address: "", phone: "", email: "" });
+  const [data, setData] = useState({ username: "", password: "", role: "",name: "", owner: "", CUI: "", address: "", phone: "", email: "", confirm_password: "" });
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
   const [getdata,setGetdata] = useState("");
@@ -14,8 +14,7 @@ const EditProfileManager  = () =>{
       setGetdata(response.data);
       setData(response.data);
     });
-    
-},[]);
+});
        
     
   const handleChange = ({ currentTarget: input }) => {
@@ -27,8 +26,13 @@ const EditProfileManager  = () =>{
     
       const handleSubmit = async (e) => {
         e.preventDefault();
-        axios
-          .put('http://localhost:5000/users/'+admin_ID, {
+        if(data.confirm_password !== data.password && data.confirm_password){
+          setError("Parolele nu corespund!");
+            setTimeout(() => {
+              setError("");
+            }, 5000);
+        }else{
+        axios.put('http://localhost:5000/users/'+admin_ID, {
                 username: data.username,
                 password: data.password,
                 email: data.email,
@@ -40,19 +44,18 @@ const EditProfileManager  = () =>{
                 role: getdata.role,
           }).then(response => {
             setSuccess("Cont editat cu succes!");
-
             setTimeout(() => {
               setSuccess("");
               window.location = "/managerHome";
             }, 5000);
           })
           .catch(error => {
-            
             setError(error.response.data.error);
             setTimeout(() => {
               setError("");
             }, 5000);
           })
+        }
       };
     
     
@@ -74,6 +77,7 @@ const EditProfileManager  = () =>{
                         <div className="grid-child-element_edit">
               <div className='edit_profile_label'><label htmlFor="Username:">Username: </label></div>
               <div className='edit_profile_label'><label htmlFor="Parolă">Parolă: </label></div>
+              <div className='edit_profile_label'><label htmlFor="Parolă">Confirmă parola: </label></div>
               <div className='edit_profile_label'><label htmlFor="email">Email: </label></div>
               <div className='edit_profile_label'><label htmlFor="name">Nume firmă: </label></div>
               <div className='edit_profile_label'><label htmlFor="owner">Nume: </label></div>
@@ -95,6 +99,14 @@ const EditProfileManager  = () =>{
                     name='password'
                     className='input'
                     value={data.password}
+                    onChange={handleChange}
+                  />
+                  <input
+                    type='password'
+                    placeholder='Confirmare parolă'
+                    name='confirm_password'
+                    className='input'
+                    value={data.confirm_password}
                     onChange={handleChange}
                   />
                   <input

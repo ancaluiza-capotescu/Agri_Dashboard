@@ -50,7 +50,7 @@
 .h1_aboutus{
   font-size: max(3vw, 25px);
   text-align:center;
-  padding:12vh;
+  padding:1vh;
   font-family: "Copperplate", Copperplate, fantasy;
   color:#155c17;
 }
@@ -168,7 +168,7 @@
 }
 .grid-child-element_edit{
   text-align: right;
-  margin-bottom: 7vh;
+  margin-bottom: 1vh;
 }
 .grid-child-element_myads { 
   text-align: left;
@@ -204,7 +204,7 @@
 .edit_profile_label{
   margin-top: 2vh;
   margin-bottom: 6vh;
-  margin-left: 5vw;
+  margin-left: 2vw;
   font-size: 20px;
 }
 .grid-container-element_edit{
@@ -292,7 +292,7 @@
 	background-color:#bfd6ae;
 }
 .editprof_form_container{
-  margin-top: 5vh;
+  margin-top: 1vh;
 	width: max(6vw,600px);
   min-height: max(40vh,500px);
   margin-left:10vw;
@@ -685,7 +685,7 @@ label {
   color:#155c17;
   display: inline-block;
   text-align: center;
-  margin-top: 2vh;
+  margin-top: 0vh;
 }
 
 .h1_adminpage{

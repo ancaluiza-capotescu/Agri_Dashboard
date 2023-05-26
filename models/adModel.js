@@ -39,8 +39,6 @@ const adSchema = new Schema({
     type: String,
 
   },
-
-
 });
 
 

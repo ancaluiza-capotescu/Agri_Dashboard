@@ -47,7 +47,6 @@ const Register = () => {
 		  e.preventDefault();
             data.role = "manager";
 			const urlCUI = "https://api.openapi.ro/api/companies/"+data.cui;
-
             axios.get(urlCUI,{ headers: { 'x-api-key': '8K5dfthvMSZ4LXEX56ZeHNL6A8ZUgsYf-CWHGZZot7KHr4egkg' } 
             }).then(result => { 
                 postRequest(result.data.cif);
@@ -55,8 +54,6 @@ const Register = () => {
             .catch(() => {
                 postRequest("error");
              });
-             
-            
 	  };	  
   return (
       <div>

@@ -14,8 +14,7 @@ const EditEmployee  = () =>{
       setGetdata(response.data);
       setData(response.data);
     });
-    
-},[]);
+});
        
     
   const handleChange = ({ currentTarget: input }) => {
@@ -69,7 +68,7 @@ const EditEmployee  = () =>{
                
                 <div className="h1_editprofile" >
                   <p className="h1_editprofile">
-                      Editează profilul
+                      Editează angajatul
                   </p>
                 </div>
               

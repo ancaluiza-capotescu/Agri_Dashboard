@@ -20,7 +20,6 @@ const FormEmployee = () => {
 		  e.preventDefault();
             data.owner = admin_name;
             data.CUI = admin_CUI;
-            console.log(data.CUI);
             data.role = "angajat";
 			const url = "http://localhost:5000/users/register";
             axios.post(url, {

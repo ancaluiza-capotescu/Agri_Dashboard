@@ -30,11 +30,11 @@ router.post('/Locations', (req, res) => {
   });
 
   router.put('/Locations/:username', async(req, res) => {
-    Location.findOneAndUpdate({ username: req.params.username}, {username: req.body.username, latitude: req.body.latitude, longitude: req.body.longitude})
+    Location.findOneAndUpdate({ username: req.params.username}, 
+      {username: req.body.username, latitude: req.body.latitude, longitude: req.body.longitude})
       .then((data) => res.json(data))
       .catch(err =>
         res.status(400).json({ error: 'Unable to update the Database' })
       );
- 
   });
 module.exports = router;

@@ -4,12 +4,10 @@ const ErrorResponse = require("../utils/errorResponse");
 
 exports.dailyStatus=async(req,res,next) => {
     const {username, status} = req.body;
-    if(!username || !status){
+    if(!status){
         return next(new ErrorResponse("Completați toate câmpurile", 400));
     }
-    if(username.length < 3){
-        return next(new ErrorResponse("Introduceți un username valid!"));
-    }
+
     try{
         const newDailyStatus = new DailyStatus({
             username,

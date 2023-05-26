@@ -33,20 +33,18 @@ const ManagerHome = () => {
  },[]);
   return (
     <div>
-    <div className="dropdown">
+  <div className="dropdown">
     <button   className="menu_btn">
     <center><img className="img_menu" src="images/menu_dropdown.png" alt="" ></img></center>
     </button>
-    <div className="dropdown-content">
-    <button onClick={handleMyAccount} >Contul Meu</button>
-    <button onClick={handleMyEmployees}>Angajați</button>
-    <button onClick={handleShop}>Magazin</button>
-    <button onClick={handleMyAds}>Anunțurile mele</button>
-    <button onClick={handleLogout}>Ieși din cont</button>
-    </div>
-
-    
-</div>
+      <div className="dropdown-content">
+        <button onClick={handleMyAccount} >Contul Meu</button>
+        <button onClick={handleMyEmployees}>Angajați</button>
+        <button onClick={handleShop}>Magazin</button>
+        <button onClick={handleMyAds}>Anunțurile mele</button>
+        <button onClick={handleLogout}>Ieși din cont</button>
+      </div>  
+  </div>
 
     
     <div>

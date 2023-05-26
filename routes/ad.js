@@ -1,7 +1,6 @@
 const express = require('express');
 const router = express.Router();
 const Ad = require('../models/adModel.js');
-const {createAd} = require("../controllers/createAd");
 const multer = require('multer')
 
 const storage = multer.diskStorage({
@@ -15,11 +14,6 @@ const storage = multer.diskStorage({
 
 const upload = multer({storage: storage});
 
-router.get('/Ads', (req, res, next) => {
-    Ad.find()
-      .then((data) => res.json(data))
-      .catch(next);
-  });
 router.post("/Ads", upload.single("picture"), (req,res) => {
   const newAd = new Ad({
     username: req.body.username, 
@@ -31,12 +25,17 @@ router.post("/Ads", upload.single("picture"), (req,res) => {
     contact: req.body.contact,  
     picture: req.file.originalname
   });
-  
   newAd.save()
     .then(() => res.json('Ad added!'))
     .catch(err => res.status(400).json('Error: ' + err));
 });
-  
+
+router.get('/Ads', (req, res, next) => {
+  Ad.find()
+    .then((data) => res.json(data))
+    .catch(next);
+});
+
 router.delete('/Ads/:id', (req, res, next) => {
     Ad.findOneAndDelete({ _id: req.params.id })
       .then((data) => res.json(data))
@@ -47,12 +46,5 @@ router.get('/:id', (req, res) => {
       .then((data) => res.json(data))
       .catch(err => res.status(404).json({ nouserfound: 'No Ads found' }));
   });
-// router.put('/:id', async(req, res) => {
-//     Ad.findByIdAndUpdate(req.params.id, req.body)
-//       .then((data) => res.json(data))
-//       .catch(err =>
-//         res.status(400).json({ error: 'Unable to update the Database' })
-//       );
- 
-//   });
+
 module.exports = router;

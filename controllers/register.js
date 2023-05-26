@@ -57,7 +57,7 @@ exports.register=async(req,res,next) => {
            return next(new ErrorResponse("Numărul de telefon trebuie să conțină exact 10 cifre și să fie valid!"));
         }
         if(owner.length < 3){
-            return next(new ErrorResponse("Introduceți numele complet al directorului (nume și prenume)!"));
+            return next(new ErrorResponse("Introduceți numele complet (nume și prenume)!"));
         }
         if(checkCUI(CUI)){
             return next(new ErrorResponse("Introduceți un CUI valid!"));

@@ -23,9 +23,9 @@ const ManagersEmployees = () => {
       const handleAddEmployee = () => {
         window.location = "/formemployee";
       }
+      const [ListOfStatuses,setListOfStatuses] = useState([]);
       const [ListOfLocations, setListOfLocations] = useState([]);
       const [ListOfMyEmployees,setListOfMyEmployees] = useState([]);
-      const [ListOfStatuses,setListOfStatuses] = useState([]);
       const admin_CUI = localStorage.getItem("admin_CUI");
       const onlyMyEmployees = ListOfMyEmployees.filter(it => it.role === "angajat" && it.CUI === admin_CUI );
       useEffect(()=>{
@@ -87,14 +87,18 @@ const ManagersEmployees = () => {
           googleMapsApiKey="AIzaSyA8-e5V-3Cjt5366J_GNt_wVHzPC04SjLY"
     >  
     <GoogleMap 
-          zoom={13} 
+          zoom = {12}
           center={{lat: avgLat, lng: avgLng}} 
           mapContainerClassName="map-container-manager">
           {
             wantedLocations.map((location,index) =>{
               return(
-                <Marker key={index} label={location.username} className="markerStyle" position = {{lat: parseFloat(location.latitude), lng: parseFloat(location.longitude)}}>
-                 </Marker> 
+                <Marker 
+                  key={index} 
+                  label={location.username} 
+                  className="markerStyle" 
+                  position = {{lat: parseFloat(location.latitude), lng: parseFloat(location.longitude)}}>
+                </Marker> 
               );
             })
           }
@@ -104,9 +108,7 @@ const ManagersEmployees = () => {
           {onlyMyEmployees.map((myemployees)=>{
            const handleEditEmployee = () => {
             localStorage.setItem("currentEmployeeId",myemployees._id);
-			 
             window.location = "/editemployee/"+myemployees._id;
-
           }
 
           let i=0;
@@ -132,7 +134,7 @@ const ManagersEmployees = () => {
                     <div><h3 >Email:</h3> </div>
                     <div><h3 >Numar de telefon:</h3></div>
                     <div><h3 >Adresă:</h3> </div>  
-                    <div><h3 >Status:</h3> </div>  
+                    <div><h3 >Raport zilnic:</h3> </div>  
                     </div>
                 <div className='grid-child-element_myemployees'>
                     <h3 >{myemployees.email} </h3>

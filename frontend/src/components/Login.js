@@ -13,7 +13,6 @@ const Login = () => {
 		  setData({ ...data, [input.name]: input.value });
 	  };
 	  const [ListOfUsers,setListOfUsers] =useState([]);
-	  const currentLogged = localStorage.getItem("currentLoggedAdmin");
 	 
 	  
 	  useEffect(()=>{
@@ -32,20 +31,11 @@ const Login = () => {
 			  localStorage.setItem("currentLoggedAdminName",data);
 			  localStorage.setItem("currentLoggedAdminID",String(data._id));
 			  const users = ListOfUsers.filter(it => it.username === data.username);
-			  users.map((user)=>{
-				console.log(user.role);
-				 if (user.role === "administrator"){
-
-					window.location = "/adminHome";
-	
-				  }else if (user.role === "manager"){
-	
+			  users.forEach((user)=>{
+				if (user.role === "manager"){
 					window.location = "/managerHome";
-	
 				  }else if (user.role === "angajat"){
-	
 					window.location = "/employeeHome";
-	
 				  }
 			})}catch (error) {
 			  console.log(error);
@@ -98,10 +88,8 @@ const Login = () => {
 						</button>
 					</form>
 				</div>
-				
 			</div>
-           
-		</div>
+</div>
 
      </div>
   )

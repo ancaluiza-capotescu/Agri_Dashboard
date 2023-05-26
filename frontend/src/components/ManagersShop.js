@@ -49,8 +49,6 @@ const ManagersShop = () => {
     <br></br>
           {ListOfAds.map((ads)=>{
             return (
-              
- 
              <div key={ads._id} className='ads_style'>
               <div className='br_color'>....</div>
               <div className="h2_myads"> {ads.title}</div>
@@ -74,7 +72,6 @@ const ManagersShop = () => {
               </div>
               </div>
               </div>
-              
               );
             })}
    
