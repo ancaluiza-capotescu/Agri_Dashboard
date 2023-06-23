@@ -9,12 +9,12 @@ const EditEmployee  = () =>{
   const [getdata,setGetdata] = useState("");
   const currentEmplId = localStorage.getItem("currentEmployeeId");
 	  
-  useEffect(()=>{
+  if(!getdata){
     axios.get('http://localhost:5000/users/'+currentEmplId).then((response)=>{ 
       setGetdata(response.data);
       setData(response.data);
     });
-});
+  }
        
     
   const handleChange = ({ currentTarget: input }) => {

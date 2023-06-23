@@ -87,7 +87,7 @@ const ManagersEmployees = () => {
           googleMapsApiKey="AIzaSyA8-e5V-3Cjt5366J_GNt_wVHzPC04SjLY"
     >  
     <GoogleMap 
-          zoom = {12}
+          zoom = {11}
           center={{lat: avgLat, lng: avgLng}} 
           mapContainerClassName="map-container-manager">
           {

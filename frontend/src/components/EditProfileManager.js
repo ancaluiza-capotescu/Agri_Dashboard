@@ -9,12 +9,13 @@ const EditProfileManager  = () =>{
   const [getdata,setGetdata] = useState("");
   const admin_ID = localStorage.getItem("admin_ID");
 	  
-  useEffect(()=>{
+  if(!getdata){
     axios.get('http://localhost:5000/users/'+admin_ID).then((response)=>{ 
       setGetdata(response.data);
       setData(response.data);
+      console.log("useeffect");
     });
-});
+  }
        
     
   const handleChange = ({ currentTarget: input }) => {
